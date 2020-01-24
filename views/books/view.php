@@ -2,6 +2,7 @@
 
 use app\models\Books;
 use yii\web\View;
+use yii\widgets\Breadcrumbs;
 
 /**
  * @var Books $book
@@ -9,6 +10,7 @@ use yii\web\View;
  */
 
 $this->title = $book->title . ' by ' . $book->publishing_id . ' ' . $book->year;
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <h2><?= $book->title ?></h2>
 

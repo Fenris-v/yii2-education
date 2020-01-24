@@ -3,6 +3,7 @@
 use app\models\Books;
 use yii\helpers\Html;
 use yii\web\View;
+use yii\widgets\Breadcrumbs;
 
 /**
  * @var Books[] $books
@@ -10,6 +11,7 @@ use yii\web\View;
  */
 
 $this->title = 'Books list';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 <h2>Books list</h2>
 

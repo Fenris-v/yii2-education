@@ -4,6 +4,7 @@ use app\models\Books;
 use yii\helpers\Html;
 use yii\web\View;
 use yii\widgets\ActiveForm;
+use yii\widgets\Breadcrumbs;
 
 /**
  * @var Books $book
@@ -11,6 +12,7 @@ use yii\widgets\ActiveForm;
  */
 
 $this->title = 'Add book';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <h2>Add book</h2>
