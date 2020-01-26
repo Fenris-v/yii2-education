@@ -4,7 +4,9 @@ namespace app\controllers;
 
 use app\models\Books;
 use app\models\Categories;
+use app\models\Publishing;
 use Yii;
+use yii\data\Pagination;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -12,10 +14,16 @@ class BooksController extends Controller
 {
     public function actionIndex()
     {
-        $books = Books::find()->all();
-        $categories = Categories::find()->all();
+        $query = Books::find();
+        $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 2]);
+        $books = $query->offset($pages->offset)
+            ->limit($pages->limit)
+            ->all();
 
-        return $this->render('list', ['books' => $books, 'categories' => $categories]);
+        $categories = Categories::find()->all();
+        $publishing = Publishing::find()->all();
+
+        return $this->render('list', ['books' => $books, 'pages' => $pages, 'categories' => $categories, 'publishing' => $publishing]);
     }
 
     /**

@@ -2,15 +2,26 @@
 
 use app\models\Books;
 use app\models\Categories;
+use app\models\Publishing;
 use yii\helpers\Html;
 use yii\web\View;
 use yii\widgets\ActiveForm;
+use yii\widgets\LinkPager;
 
 /**
  * @var Books[] $books
  * @var Categories[] $categories
+ * @var Publishing[] $publishing
  * @var View $this
  */
+
+$cost = [];
+
+foreach ($books as $book) {
+    $cost[] = $book->cost;
+}
+$minCost = min($cost);
+$maxCost = max($cost);
 
 $this->title = 'Books list';
 $this->params['breadcrumbs'][] = $this->title;
@@ -29,18 +40,18 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 
     <div class="col-xs-9" style="padding-left: 0; padding-right: 0">
-        <div class="filters col-xs-12" style="margin-bottom: 20px;">
+        <div class="filters col-xs-12" style="margin-bottom: 20px; padding-left: 0; padding-right: 0;">
             <?php $form = ActiveForm::begin() ?>
             <div class="col-xs-4" style="padding-left: 0; padding-right: 0">
                 <p style="font-weight: bold">Price</p>
                 <div class="col-xs-6" style="padding-left: 0">
                     <label>
-                        <input type="text" class="form-control" placeholder="Min">
+                        <input type="text" class="form-control" placeholder="Min" value="<?php echo $minCost ?>">
                     </label>
                 </div>
                 <div class="col-xs-6" style="padding-left: 0">
                     <label>
-                        <input type="text" class="form-control" placeholder="Max">
+                        <input type="text" class="form-control" placeholder="Max" value="<?php echo $maxCost ?>">
                     </label>
                 </div>
             </div>
@@ -50,7 +61,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <input type="text" class="form-control" placeholder="Publishing">
                 </label>
             </div>
-            <div class="col-xs-4" style="padding-right: 0">
+            <div class="col-xs-4" style="padding-right: 0; padding-left: 0;">
                 <p style="font-weight: bold">Authors</p>
                 <label>
                     <input type="text" class="form-control" placeholder="Authors">
@@ -76,7 +87,9 @@ $this->params['breadcrumbs'][] = $this->title;
                     </h4>
                     <ul>
                         <li>
-                            <?= $book->publishing_id ?>
+                            <?php foreach ($publishing as $pub): ?>
+                                <?php if ($pub->id === $book->publishing_id) echo $pub->name; ?>
+                            <?php endforeach; ?>
                         </li>
                         <li>
                             <?= $book->year . ' year' ?>
@@ -90,24 +103,30 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         <?php endforeach; ?>
 
-        <nav aria-label="Page navigation">
-            <ul class="pagination">
-                <li>
-                    <a href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li>
-                    <a href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+        <?php
+        echo LinkPager::widget([
+            'pagination' => $pages,
+        ]);
+        ?>
+
+<!--        <nav aria-label="Page navigation">-->
+<!--            <ul class="pagination">-->
+<!--                <li>-->
+<!--                    <a href="#" aria-label="Previous">-->
+<!--                        <span aria-hidden="true">&laquo;</span>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--                <li><a href="#">1</a></li>-->
+<!--                <li><a href="#">2</a></li>-->
+<!--                <li><a href="#">3</a></li>-->
+<!--                <li><a href="#">4</a></li>-->
+<!--                <li><a href="#">5</a></li>-->
+<!--                <li>-->
+<!--                    <a href="#" aria-label="Next">-->
+<!--                        <span aria-hidden="true">&raquo;</span>-->
+<!--                    </a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </nav>-->
     </div>
 </div>
