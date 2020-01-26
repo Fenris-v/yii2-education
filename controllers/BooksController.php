@@ -14,7 +14,13 @@ class BooksController extends Controller
 {
     public function actionIndex()
     {
-        $query = Books::find();
+        $allBooks = Books::find()->all();
+        $categoryId = Yii::$app->request->get('id');
+        if (!$categoryId) {
+            $query = Books::find();
+        } else {
+            $query = Books::find()->where(['category_id' => $categoryId]);
+        }
         $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 2]);
         $books = $query->offset($pages->offset)
             ->limit($pages->limit)
@@ -23,8 +29,13 @@ class BooksController extends Controller
         $categories = Categories::find()->all();
         $publishing = Publishing::find()->all();
 
-        return $this->render('list', ['books' => $books, 'pages' => $pages, 'categories' => $categories, 'publishing' => $publishing]);
+        return $this->render('list', ['allBooks' => $allBooks, 'books' => $books, 'pages' => $pages, 'categories' => $categories, 'publishing' => $publishing]);
     }
+
+//    public function getCategoryBooks()
+//    {
+//        $query
+//    }
 
     /**
      * @param $id
@@ -35,12 +46,13 @@ class BooksController extends Controller
     public function actionView($id)
     {
         $book = Books::findOne($id);
+        $publishing = Publishing::find()->all();
 
         if ($book === null) {
             throw new NotFoundHttpException('This book does not exists');
         }
 
-        return $this->render('view', ['book' => $book]);
+        return $this->render('view', ['book' => $book, 'publishing' => $publishing]);
     }
 
     public function actionCreate()

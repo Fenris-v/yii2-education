@@ -1,11 +1,13 @@
 <?php
 
 use app\models\Books;
+use app\models\Publishing;
 use yii\helpers\Html;
 use yii\web\View;
 
 /**
  * @var Books $book
+ * @var Publishing[] $publishing
  * @var View $this
  */
 $this->title = $book->title;
@@ -33,7 +35,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Edit', ['books/update', 'id' => $book->id]) ?>
         <ul>
             <li>
-                <?= $book->publishing_id ?>
+                <?php foreach ($publishing as $pub): ?>
+                    <?php if ($pub->id === $book->publishing_id) echo $pub->name; ?>
+                <?php endforeach; ?>
             </li>
             <li>
                 <?= $book->year . ' year' ?>

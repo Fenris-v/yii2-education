@@ -15,6 +15,7 @@ use yii\db\ActiveRecord;
  * @property string $photo_url
  * @property string $cost
  * @property string $description
+ * @property int $category_id
  *
  * @package app\models
  */

@@ -10,14 +10,16 @@ use yii\widgets\LinkPager;
 
 /**
  * @var Books[] $books
+ * @var Books[] $allBooks
  * @var Categories[] $categories
  * @var Publishing[] $publishing
+ * @var Books $pages
  * @var View $this
  */
 
 $cost = [];
 
-foreach ($books as $book) {
+foreach ($allBooks as $book) {
     $cost[] = $book->cost;
 }
 $minCost = min($cost);
@@ -26,14 +28,16 @@ $maxCost = max($cost);
 $this->title = 'Books list';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 <h2>Books list</h2>
+
 
 <div class="site-about">
     <div class="col-xs-3" style="padding-left: 0">
         <ul class="nav nav-pills nav-stacked bg-info">
             <?php foreach ($categories as $category): ?>
                 <li role="presentation">
-                    <?= Html::a($category->category, ['books/list', 'id' => $category->id]) ?>
+                    <?= Html::a($category->category, ['', 'id' => $category->id]) ?>
                 </li>
             <?php endforeach; ?>
         </ul>
@@ -70,9 +74,12 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php ActiveForm::end(); ?>
         </div>
 
-
+        <?php if (count($books) < 1): ?>
+            <div class="item col-xs-12">
+                Sorry! Category is empty...
+            </div>
+        <?php endif; ?>
         <?php foreach ($books as $book): ?>
-
             <div class="item col-xs-12"
                  style="margin-bottom: 20px; display: block; border: 1px solid #28a745!important; background-color: #f5f5f5;">
                 <div class="photo col-xs-4" style="padding-left: 0; padding-top: 20px">
@@ -108,25 +115,5 @@ $this->params['breadcrumbs'][] = $this->title;
             'pagination' => $pages,
         ]);
         ?>
-
-<!--        <nav aria-label="Page navigation">-->
-<!--            <ul class="pagination">-->
-<!--                <li>-->
-<!--                    <a href="#" aria-label="Previous">-->
-<!--                        <span aria-hidden="true">&laquo;</span>-->
-<!--                    </a>-->
-<!--                </li>-->
-<!--                <li><a href="#">1</a></li>-->
-<!--                <li><a href="#">2</a></li>-->
-<!--                <li><a href="#">3</a></li>-->
-<!--                <li><a href="#">4</a></li>-->
-<!--                <li><a href="#">5</a></li>-->
-<!--                <li>-->
-<!--                    <a href="#" aria-label="Next">-->
-<!--                        <span aria-hidden="true">&raquo;</span>-->
-<!--                    </a>-->
-<!--                </li>-->
-<!--            </ul>-->
-<!--        </nav>-->
     </div>
 </div>
