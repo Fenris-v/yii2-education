@@ -4,7 +4,6 @@ use app\models\Books;
 use yii\helpers\Html;
 use yii\web\View;
 use yii\widgets\ActiveForm;
-use yii\widgets\Breadcrumbs;
 
 /**
  * @var Books $book
@@ -20,6 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php $form = ActiveForm::begin() ?>
 <?= $form->field($book, 'title')->label('Название') ?>
 <?= $form->field($book, 'authors')->label('Авторы') ?>
+<?= $form->field($book, 'category_id')->label('Категория') ?>
 <?= $form->field($book, 'year')->label('Год')->input('number') ?>
 <?= $form->field($book, 'publishing_id')->label('Издательство') ?>
 <?= $form->field($book, 'photo_url')->label('Ссылка на изображение') ?>

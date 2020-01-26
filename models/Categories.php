@@ -18,11 +18,4 @@ class Categories extends ActiveRecord
     {
         return 'categories';
     }
-
-    public function rules()
-    {
-        return [
-            [['id', 'category'], 'required'],
-        ];
-    }
 }

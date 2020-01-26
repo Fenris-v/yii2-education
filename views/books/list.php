@@ -5,7 +5,6 @@ use app\models\Categories;
 use yii\helpers\Html;
 use yii\web\View;
 use yii\widgets\ActiveForm;
-use yii\widgets\Breadcrumbs;
 
 /**
  * @var Books[] $books
@@ -18,16 +17,14 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <h2>Books list</h2>
 
-<?= Html::a('Add book', ['books/create']) ?>
 <div class="site-about">
     <div class="col-xs-3" style="padding-left: 0">
         <ul class="nav nav-pills nav-stacked bg-info">
-            <?php echo $categories ?>
-<!--            --><?php //foreach ($categories as $category): ?>
-<!--                <li role="presentation">-->
-<!--                    --><?// //= Html::a($category->name, ['books/list', 'id' => $category->id]) ?>
-<!--                </li>-->
-<!--            --><?php //endforeach; ?>
+            <?php foreach ($categories as $category): ?>
+                <li role="presentation">
+                    <?= Html::a($category->category, ['books/list', 'id' => $category->id]) ?>
+                </li>
+            <?php endforeach; ?>
         </ul>
     </div>
 
@@ -37,19 +34,27 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="col-xs-4" style="padding-left: 0; padding-right: 0">
                 <p style="font-weight: bold">Price</p>
                 <div class="col-xs-6" style="padding-left: 0">
-                    <input type="text" class="form-control" placeholder="Min">
+                    <label>
+                        <input type="text" class="form-control" placeholder="Min">
+                    </label>
                 </div>
                 <div class="col-xs-6" style="padding-left: 0">
-                    <input type="text" class="form-control" placeholder="Max">
+                    <label>
+                        <input type="text" class="form-control" placeholder="Max">
+                    </label>
                 </div>
             </div>
             <div class="col-xs-4" style="padding-left: 0">
                 <p style="font-weight: bold">Publishing</p>
-                <input type="text" class="form-control" placeholder="Publishing">
+                <label>
+                    <input type="text" class="form-control" placeholder="Publishing">
+                </label>
             </div>
             <div class="col-xs-4" style="padding-right: 0">
                 <p style="font-weight: bold">Authors</p>
-                <input type="text" class="form-control" placeholder="Authors">
+                <label>
+                    <input type="text" class="form-control" placeholder="Authors">
+                </label>
             </div>
             <?php ActiveForm::end(); ?>
         </div>
@@ -59,8 +64,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <div class="item col-xs-12"
                  style="margin-bottom: 20px; display: block; border: 1px solid #28a745!important; background-color: #f5f5f5;">
-                <div class="photo col-xs-4" style="padding-left: 0">
-                    <img src="#" alt="book">
+                <div class="photo col-xs-4" style="padding-left: 0; padding-top: 20px">
+                    <img class="img-responsive" src="<?= $book->photo_url ?>" alt="book">
                 </div>
                 <div class="description col-xs-8" style="padding-right: 0">
                     <h3>
@@ -75,6 +80,9 @@ $this->params['breadcrumbs'][] = $this->title;
                         </li>
                         <li>
                             <?= $book->year . ' year' ?>
+                        </li>
+                        <li>
+                            <?= $book->cost . ' rub.' ?>
                         </li>
                     </ul>
                     <p><?= $book->description ?></p>

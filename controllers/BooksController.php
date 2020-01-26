@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Books;
+use app\models\Categories;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -12,8 +13,9 @@ class BooksController extends Controller
     public function actionIndex()
     {
         $books = Books::find()->all();
+        $categories = Categories::find()->all();
 
-        return $this->render('list', ['books' => $books]);
+        return $this->render('list', ['books' => $books, 'categories' => $categories]);
     }
 
     /**
@@ -26,8 +28,7 @@ class BooksController extends Controller
     {
         $book = Books::findOne($id);
 
-        if ($book === null)
-        {
+        if ($book === null) {
             throw new NotFoundHttpException('This book does not exists');
         }
 
