@@ -10,11 +10,19 @@ use yii\widgets\ActiveForm;
  * @var View $this
  */
 
-$this->title = 'Add book';
+if (Yii::$app->request->pathInfo === 'books/update') {
+    $title = 'Edit book';
+    $btn = 'Save';
+} else {
+    $title = 'Add book';
+    $btn = 'Create';
+}
+
+$this->title = $title;
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<h2>Add book</h2>
+<h2><?= $title ?></h2>
 
 <?php $form = ActiveForm::begin() ?>
 <?= $form->field($book, 'title')->label('Название') ?>
@@ -25,5 +33,5 @@ $this->params['breadcrumbs'][] = $this->title;
 <?= $form->field($book, 'photo_url')->label('Ссылка на изображение') ?>
 <?= $form->field($book, 'cost')->label('Цена')->input('number') ?>
 <?= $form->field($book, 'description')->label('Описание')->textarea(['rows' => '6']) ?>
-<?= Html::submitButton('Create')?>
+<?= Html::submitButton($btn)?>
 <?php ActiveForm::end(); ?>

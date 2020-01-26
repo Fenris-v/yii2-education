@@ -29,13 +29,9 @@ class BooksController extends Controller
         $categories = Categories::find()->all();
         $publishing = Publishing::find()->all();
 
-        return $this->render('list', ['allBooks' => $allBooks, 'books' => $books, 'pages' => $pages, 'categories' => $categories, 'publishing' => $publishing]);
+        return $this->render('list', ['allBooks' => $allBooks, 'books' => $books, 'pages' => $pages,
+            'categories' => $categories, 'publishing' => $publishing]);
     }
-
-//    public function getCategoryBooks()
-//    {
-//        $query
-//    }
 
     /**
      * @param $id

@@ -31,7 +31,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <h2>Books list</h2>
 
-
 <div class="site-about">
     <div class="col-xs-3" style="padding-left: 0">
         <ul class="nav nav-pills nav-stacked bg-info">
