@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Books;
+use app\models\BooksSearch;
 use app\models\Categories;
 use app\models\Publishing;
 use Yii;
@@ -29,8 +30,12 @@ class BooksController extends Controller
         $categories = Categories::find()->all();
         $publishing = Publishing::find()->all();
 
+        $booksSearch = new BooksSearch();
+        $dataProvider = $booksSearch->search(Yii::$app->request->queryParams);
+
         return $this->render('list', ['allBooks' => $allBooks, 'books' => $books, 'pages' => $pages,
-            'categories' => $categories, 'publishing' => $publishing]);
+            'categories' => $categories, 'publishing' => $publishing,
+            'booksSearch' => $booksSearch, 'dataProvider' => $dataProvider]);
     }
 
     /**
