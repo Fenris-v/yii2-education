@@ -5,7 +5,6 @@ use app\models\Categories;
 use app\models\Publishing;
 use yii\helpers\Html;
 use yii\web\View;
-use yii\widgets\ActiveForm;
 use yii\widgets\LinkPager;
 use yii\widgets\ListView;
 use yii\widgets\Pjax;
@@ -21,14 +20,6 @@ use yii\widgets\Pjax;
  * @var View $this
  */
 
-$cost = [];
-
-foreach ($allBooks as $book) {
-    $cost[] = $book->cost;
-}
-$minCost = min($cost);
-$maxCost = max($cost);
-
 $this->title = 'Books list';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -37,6 +28,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div class="site-about">
     <div class="col-xs-3" style="padding-left: 0">
+        <?php if ($categoryId = Yii::$app->request->get('id')) {
+            echo Html::a('All books', ['']);
+        } ?>
         <ul class="nav nav-pills nav-stacked bg-info">
             <?php foreach ($categories as $category): ?>
                 <li role="presentation">
@@ -49,86 +43,45 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col-xs-9" style="padding-left: 0; padding-right: 0">
         <div class="filters col-xs-12" style="margin-bottom: 20px; padding-left: 0; padding-right: 0;">
             <?php echo $this->render('_search', ['model' => $booksSearch]); ?>
-<!--            --><?php //$form = ActiveForm::begin() ?>
-<!--            <div class="col-xs-4" style="padding-left: 0; padding-right: 0">-->
-<!--                <p style="font-weight: bold">Price</p>-->
-<!--                <div class="col-xs-6" style="padding-left: 0">-->
-<!--                    <label>-->
-<!--                        <input type="text" class="form-control" placeholder="Min" value="--><?php //echo $minCost ?><!--">-->
-<!--                    </label>-->
-<!--                </div>-->
-<!--                <div class="col-xs-6" style="padding-left: 0">-->
-<!--                    <label>-->
-<!--                        <input type="text" class="form-control" placeholder="Max" value="--><?php //echo $maxCost ?><!--">-->
-<!--                    </label>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="col-xs-4" style="padding-left: 0">-->
-<!--                <p style="font-weight: bold">Publishing</p>-->
-<!--                <label>-->
-<!--                    <input type="text" class="form-control" placeholder="Publishing">-->
-<!--                </label>-->
-<!--            </div>-->
-<!--            <div class="col-xs-4" style="padding-right: 0; padding-left: 0;">-->
-<!--                <p style="font-weight: bold">Authors</p>-->
-<!--                <label>-->
-<!--                    <input type="text" class="form-control" placeholder="Authors">-->
-<!--                </label>-->
-<!--            </div>-->
-<!--            --><?php //ActiveForm::end(); ?>
         </div>
 
-        <?php if (count($books) < 1): ?>
-            <div class="item col-xs-12">
-                Sorry! Category is empty...
-            </div>
-        <?php endif; ?>
-<!--        --><?php //foreach ($books as $book): ?>
-<!--            <div class="item col-xs-12"-->
-<!--                 style="margin-bottom: 20px; display: block; border: 1px solid #28a745!important; background-color: #f5f5f5;">-->
-<!--                <div class="photo col-xs-4" style="padding-left: 0; padding-top: 20px">-->
-<!--                    <img class="img-responsive" src="--><?//= $book->photo_url ?><!--" alt="book">-->
-<!--                </div>-->
-<!--                <div class="description col-xs-8" style="padding-right: 0">-->
-<!--                    <h3>-->
-<!--                        --><?//= Html::a($book->title, ['books/view', 'id' => $book->id]) ?>
-<!--                    </h3>-->
-<!--                    <h4>-->
-<!--                        --><?//= $book->authors ?>
-<!--                    </h4>-->
-<!--                    <ul>-->
-<!--                        <li>-->
-<!--                            --><?php //foreach ($publishing as $pub): ?>
-<!--                                --><?php //if ($pub->id === $book->publishing_id) echo $pub->name; ?>
-<!--                            --><?php //endforeach; ?>
-<!--                        </li>-->
-<!--                        <li>-->
-<!--                            --><?//= $book->year . ' year' ?>
-<!--                        </li>-->
-<!--                        <li>-->
-<!--                            --><?//= $book->cost . ' rub.' ?>
-<!--                        </li>-->
-<!--                    </ul>-->
-<!--                    <p>--><?//= $book->description ?><!--</p>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--        --><?php //endforeach; ?>
 
         <?php Pjax::begin(); ?>
         <?= ListView::widget([
             'dataProvider' => $dataProvider,
-//        'searchModel' => $searchModel,
-//        'itemOption' => ['class' => 'item'],
-            'itemView' => function ($model, $key, $index, $widget) {
-                return Html::a(Html::encode($model->title), ['view', 'id' => $model->id]);
-            },
-        ]); ?>
-        <?php Pjax::end(); ?>
+            'emptyText' => 'Sorry! <br />Category is empty...',
+            'itemView' =>
+                function ($model) use ($publishing) { ?>
 
-        <?php
-        echo LinkPager::widget([
-            'pagination' => $pages,
-        ]);
-        ?>
+                    <div class="item col-xs-12"
+                         style="margin-bottom: 20px; display: block; border: 1px solid #28a745!important; background-color: #f5f5f5;">
+                        <div class="photo col-xs-4" style="padding-left: 0; padding-top: 20px">
+                            <img class="img-responsive" src="<?= $model->photo_url ?>" alt="book">
+                        </div>
+                        <div class="description col-xs-8" style="padding-right: 0">
+                            <h3>
+                                <?= Html::a($model->title, ['books/view', 'id' => $model->id]) ?>
+                            </h3>
+                            <h4>
+                                <?= $model->authors ?>
+                            </h4>
+                            <ul>
+                                <li>
+                                    <?php foreach ($publishing as $pub): ?>
+                                        <?php if ($pub->id === $model->publishing_id) echo $pub->name; ?>
+                                    <?php endforeach; ?>
+                                </li>
+                                <li>
+                                    <?= $model->year . ' year' ?>
+                                </li>
+                                <li>
+                                    <?= $model->cost . ' rub.' ?>
+                                </li>
+                            </ul>
+                            <p><?= $model->description ?></p>
+                        </div>
+                    </div>
+                <?php }]); ?>
+        <?php Pjax::end(); ?>
     </div>
 </div>

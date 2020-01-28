@@ -23,13 +23,24 @@ use yii\widgets\LinkPager;
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
-]) ?>
+    ]) ?>
 
-    <!--    --><?//= $form->field($model, 'publishing_id') ?>
-    <?= $form->field($model, 'min_cost') ?>
-    <?= $form->field($model, 'max_cost') ?>
-    <?= $form->field($model, 'authors') ?>
-
+    <div class="col-xs-12" style="padding: 0">
+        <div class="col-xs-4" style="padding: 0">
+            <div class="col-xs-6" style="padding-left: 0">
+                <?= $form->field($model, 'min_cost') ?>
+            </div>
+            <div class="col-xs-6" style="padding-left: 0">
+                <?= $form->field($model, 'max_cost') ?>
+            </div>
+        </div>
+        <div class="col-xs-4" style="padding-left: 0">
+            <?= $form->field($model, 'publishing_id')->label('Publishing House') ?>
+        </div>
+        <div class="col-xs-4" style="padding: 0">
+            <?= $form->field($model, 'authors') ?>
+        </div>
+    </div>
     <div class="form-group">
         <?= Html::submitButton('Search') ?>
     </div>

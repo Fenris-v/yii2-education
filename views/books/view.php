@@ -26,9 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <img class="img-responsive" src="<?= $book->photo_url ?>" alt="book">
     </div>
     <div class="description col-xs-8" style="padding-right: 0">
-        <h3>
-            <?= $book->title ?>
-        </h3>
+
         <h4>
             <?= $book->authors ?>
         </h4>

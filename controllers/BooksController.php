@@ -15,17 +15,7 @@ class BooksController extends Controller
 {
     public function actionIndex()
     {
-        $allBooks = Books::find()->all();
-        $categoryId = Yii::$app->request->get('id');
-        if (!$categoryId) {
-            $query = Books::find();
-        } else {
-            $query = Books::find()->where(['category_id' => $categoryId]);
-        }
-        $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 2]);
-        $books = $query->offset($pages->offset)
-            ->limit($pages->limit)
-            ->all();
+
 
         $categories = Categories::find()->all();
         $publishing = Publishing::find()->all();
@@ -33,9 +23,10 @@ class BooksController extends Controller
         $booksSearch = new BooksSearch();
         $dataProvider = $booksSearch->search(Yii::$app->request->queryParams);
 
-        return $this->render('list', ['allBooks' => $allBooks, 'books' => $books, 'pages' => $pages,
+        return $this->render('list', [
             'categories' => $categories, 'publishing' => $publishing,
-            'booksSearch' => $booksSearch, 'dataProvider' => $dataProvider]);
+            'booksSearch' => $booksSearch, 'dataProvider' => $dataProvider
+        ]);
     }
 
     /**
