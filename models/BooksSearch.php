@@ -53,7 +53,7 @@ class BooksSearch extends Books
                 ['<=', 'cost', $this->max_cost]
             ])
             ->andFilterWhere([
-                'like', 'authors', $this->authors
+                'like', 'lower(authors)', strtolower($this->authors)
             ]);
 
         return $dataProvider;

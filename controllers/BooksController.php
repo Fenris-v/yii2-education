@@ -7,7 +7,6 @@ use app\models\BooksSearch;
 use app\models\Categories;
 use app\models\Publishing;
 use Yii;
-use yii\data\Pagination;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -15,7 +14,6 @@ class BooksController extends Controller
 {
     public function actionIndex()
     {
-
 
         $categories = Categories::find()->all();
         $publishing = Publishing::find()->all();
@@ -39,12 +37,17 @@ class BooksController extends Controller
     {
         $book = Books::findOne($id);
         $publishing = Publishing::find()->all();
+        $categories = Categories::find()->all();
 
         if ($book === null) {
             throw new NotFoundHttpException('This book does not exists');
         }
 
-        return $this->render('view', ['book' => $book, 'publishing' => $publishing]);
+        return $this->render('view', [
+            'book' => $book,
+            'publishing' => $publishing,
+            'categories' => $categories
+        ]);
     }
 
     public function actionCreate()

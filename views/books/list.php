@@ -5,7 +5,6 @@ use app\models\Categories;
 use app\models\Publishing;
 use yii\helpers\Html;
 use yii\web\View;
-use yii\widgets\LinkPager;
 use yii\widgets\ListView;
 use yii\widgets\Pjax;
 
@@ -20,17 +19,24 @@ use yii\widgets\Pjax;
  * @var View $this
  */
 
-$this->title = 'Books list';
+if ($categoryId = Yii::$app->request->get('id')) {
+    $this->title = $categories[$categoryId-1]->category;
+    $this->params['breadcrumbs'][] = [
+        'template' => "<li>{link}</li>\n",
+        'label' => 'All books',
+        'url' => ['/books']
+    ];
+} else {
+    $this->title = 'Books list';
+}
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
 
-<h2>Books list</h2>
+<h2><?= $this->title ?></h2>
 
 <div class="site-about">
     <div class="col-xs-3" style="padding-left: 0">
-        <?php if ($categoryId = Yii::$app->request->get('id')) {
-            echo Html::a('All books', ['']);
-        } ?>
         <ul class="nav nav-pills nav-stacked bg-info">
             <?php foreach ($categories as $category): ?>
                 <li role="presentation">
