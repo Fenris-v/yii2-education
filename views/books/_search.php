@@ -3,10 +3,10 @@
 use app\models\Books;
 use app\models\Categories;
 use app\models\Publishing;
+use kartik\select2\Select2;
 use yii\helpers\Html;
 use yii\web\View;
 use yii\widgets\ActiveForm;
-use yii\widgets\LinkPager;
 
 /**
  * @var Books[] $books
@@ -24,6 +24,16 @@ use yii\widgets\LinkPager;
         'action' => ['index'],
         'method' => 'get',
     ]) ?>
+
+    <?php
+//    $form->field($model, 'authors')->widget(Select2::classname(), [
+//        'data' => $data,
+//        'language' => 'en',
+//        'options' => ['placeholder' => 'Select a state ...'],
+//        'pluginOptions' => [
+//            'allowClear' => true
+//        ],
+//    ]); ?>
 
     <div class="col-xs-12" style="padding: 0">
         <div class="col-xs-4" style="padding: 0">
