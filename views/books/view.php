@@ -8,6 +8,8 @@ use yii\web\View;
 
 /**
  * @var Books $book
+ * @var Books[] $books
+ * @var Books $model
  * @var Publishing[] $publishing
  * @var Categories[] $categories
  * @var View $this
@@ -22,6 +24,7 @@ $this->params['breadcrumbs'][] = [
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
+
 <h2><?= $book->title ?></h2>
 
 <div class="item col-xs-12" style="margin-bottom: 20px; display: block;">
@@ -31,18 +34,16 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="description col-xs-8" style="padding-right: 0">
         <?php foreach ($categories as $category): ?>
             <?php if ($category->id === $book->category_id): ?>
-            <?= Html::a($category->category, ['/books', 'id' => $category->id], ['class' => 'btn btn-info']) ?>
-        <?php endif;
+                <?= Html::a($category->category, ['/books', 'id' => $category->id], ['class' => 'label label-primary']) ?>
+            <?php endif;
         endforeach; ?>
         <h4>
-            <?= $book->authors ?>
+            <?= $book->author_id ?>
         </h4>
         <?= Html::a('Edit', ['books/update', 'id' => $book->id]) ?>
         <ul>
             <li>
-                <?php foreach ($publishing as $pub): ?>
-                    <?php if ($pub->id === $book->publishing_id) echo $pub->name; ?>
-                <?php endforeach; ?>
+                <?= $book->publishing->name ?>
             </li>
             <li>
                 <?= $book->year . ' year' ?>

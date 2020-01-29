@@ -8,14 +8,14 @@ use yii\db\ActiveRecord;
  * Class Publishing
  *
  * @property int $id
- * @property string $publishing
+ * @property string $name
  *
  * @package app\models
  */
-class Publishing extends ActiveRecord
+class Authors extends ActiveRecord
 {
     public static function tableName()
     {
-        return 'publishing';
+        return 'authors';
     }
 }

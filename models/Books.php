@@ -31,9 +31,27 @@ class Books extends ActiveRecord
     public function rules()
     {
         return [
-            [['publishing_id', 'title', 'year', 'photo_url', 'cost', 'description', 'authors'], 'required'],
+            [['publishing_id', 'title', 'year', 'photo_url', 'cost', 'description', 'authors', 'category_id'], 'required'],
             [['description'], 'string', 'min' => 50],
             [['year'], 'string', 'length' => [4, 4]]
         ];
     }
+
+    public function getPublishing()
+    {
+        return $this->hasOne(Publishing::className(), ['id' => 'publishing_id']);
+    }
+
+    public function getBooksAuthors()
+    {
+        return $this->hasMany(BooksAuthors::className(), ['book_id' => 'id']);
+    }
+
+    public function getCategories()
+    {
+        return $this->hasMany(Categories::className(), ['id' => 'category_id']);
+    }
 }
+
+//blog_id = book_id
+//tag_id = author_id

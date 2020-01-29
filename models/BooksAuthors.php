@@ -12,10 +12,15 @@ use yii\db\ActiveRecord;
  *
  * @package app\models
  */
-class Publishing extends ActiveRecord
+class BooksAuthors extends ActiveRecord
 {
     public static function tableName()
     {
-        return 'publishing';
+        return 'books_authors';
+    }
+
+    public function getAuthors()
+    {
+        return $this->hasOne(Authors::className(), ['id' => 'author_id']);
     }
 }

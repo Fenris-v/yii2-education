@@ -9,18 +9,13 @@ use yii\widgets\ListView;
 use yii\widgets\Pjax;
 
 /**
- * @var Books[] $books
- * @var Books[] $allBooks
  * @var Books[] $booksSearch
  * @var Books[] $dataProvider
  * @var Categories[] $categories
- * @var Publishing[] $publishing
- * @var Books $pages
- * @var View $this
  */
 
 if ($categoryId = Yii::$app->request->get('id')) {
-    $this->title = $categories[$categoryId-1]->category;
+    $this->title = $categories[$categoryId - 1]->category;
     $this->params['breadcrumbs'][] = [
         'template' => "<li>{link}</li>\n",
         'label' => 'All books',
@@ -30,7 +25,6 @@ if ($categoryId = Yii::$app->request->get('id')) {
     $this->title = 'Books list';
 }
 $this->params['breadcrumbs'][] = $this->title;
-
 ?>
 
 <h2><?= $this->title ?></h2>
@@ -57,7 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'dataProvider' => $dataProvider,
             'emptyText' => 'Sorry! <br />Category is empty...',
             'itemView' =>
-                function ($model) use ($publishing) { ?>
+                function ($model) { ?>
 
                     <div class="item col-xs-12"
                          style="margin-bottom: 20px; display: block; border: 1px solid #28a745!important; background-color: #f5f5f5;">
@@ -69,13 +63,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?= Html::a($model->title, ['books/view', 'id' => $model->id]) ?>
                             </h3>
                             <h4>
-                                <?= $model->authors ?>
+                                <?php foreach ($model->booksAuthors as $item): ?>
+                                    <?= $item->authors->name ?>
+                                <?php endforeach; ?>
                             </h4>
                             <ul>
                                 <li>
-                                    <?php foreach ($publishing as $pub): ?>
-                                        <?php if ($pub->id === $model->publishing_id) echo $pub->name; ?>
-                                    <?php endforeach; ?>
+                                    <?= $model->publishing->name ?>
                                 </li>
                                 <li>
                                     <?= $model->year . ' year' ?>

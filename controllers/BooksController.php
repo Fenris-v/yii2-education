@@ -7,6 +7,7 @@ use app\models\BooksSearch;
 use app\models\Categories;
 use app\models\Publishing;
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -15,15 +16,14 @@ class BooksController extends Controller
     public function actionIndex()
     {
 
-        $categories = Categories::find()->all();
-        $publishing = Publishing::find()->all();
-
         $booksSearch = new BooksSearch();
+        $categories = Categories::find()->all();
         $dataProvider = $booksSearch->search(Yii::$app->request->queryParams);
 
         return $this->render('list', [
-            'categories' => $categories, 'publishing' => $publishing,
-            'booksSearch' => $booksSearch, 'dataProvider' => $dataProvider
+            'categories' => $categories,
+            'booksSearch' => $booksSearch,
+            'dataProvider' => $dataProvider
         ]);
     }
 
@@ -36,7 +36,7 @@ class BooksController extends Controller
     public function actionView($id)
     {
         $book = Books::findOne($id);
-        $publishing = Publishing::find()->all();
+//        $publishing = Publishing::find()->all();
         $categories = Categories::find()->all();
 
         if ($book === null) {
@@ -45,7 +45,7 @@ class BooksController extends Controller
 
         return $this->render('view', [
             'book' => $book,
-            'publishing' => $publishing,
+//            'publishing' => $publishing,
             'categories' => $categories
         ]);
     }

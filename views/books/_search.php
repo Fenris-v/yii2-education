@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Authors;
 use app\models\Books;
 use app\models\Categories;
 use app\models\Publishing;
@@ -11,6 +12,7 @@ use yii\widgets\ActiveForm;
 /**
  * @var Books[] $books
  * @var Books[] $allBooks
+ * @var Authors[] $authors
  * @var Categories[] $categories
  * @var Publishing[] $publishing
  * @var Books $pages
@@ -48,7 +50,7 @@ use yii\widgets\ActiveForm;
             <?= $form->field($model, 'publishing_id')->label('Publishing House') ?>
         </div>
         <div class="col-xs-4" style="padding: 0">
-            <?= $form->field($model, 'authors') ?>
+            <?= $form->field($model, 'author_id')->label('Author') ?>
         </div>
     </div>
     <div class="form-group">
