@@ -1,7 +1,6 @@
 <?php
 
 use app\models\Books;
-use app\models\Categories;
 use app\models\Publishing;
 use yii\helpers\Html;
 use yii\web\View;
@@ -11,7 +10,6 @@ use yii\web\View;
  * @var Books[] $books
  * @var Books $model
  * @var Publishing[] $publishing
- * @var Categories[] $categories
  * @var View $this
  */
 
@@ -32,13 +30,13 @@ $this->params['breadcrumbs'][] = $this->title;
         <img class="img-responsive" src="<?= $book->photo_url ?>" alt="book">
     </div>
     <div class="description col-xs-8" style="padding-right: 0">
-        <?php foreach ($categories as $category): ?>
-            <?php if ($category->id === $book->category_id): ?>
-                <?= Html::a($category->category, ['/books', 'id' => $category->id], ['class' => 'label label-primary']) ?>
-            <?php endif;
-        endforeach; ?>
+        <?php foreach ($book->category as $item): ?>
+            <?= Html::a($item->category, ['/books', 'id' => $item->id], ['class' => 'label label-primary']) ?>
+        <?php endforeach ?>
         <h4>
-            <?= $book->author_id ?>
+            <?php foreach ($book->author as $item): ?>
+                <?= $item->name; ?>
+            <?php endforeach; ?>
         </h4>
         <?= Html::a('Edit', ['books/update', 'id' => $book->id]) ?>
         <ul>

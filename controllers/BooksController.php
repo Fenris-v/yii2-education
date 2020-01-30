@@ -2,12 +2,11 @@
 
 namespace app\controllers;
 
+use app\models\Authors;
 use app\models\Books;
 use app\models\BooksSearch;
 use app\models\Categories;
-use app\models\Publishing;
 use Yii;
-use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 
@@ -18,9 +17,11 @@ class BooksController extends Controller
 
         $booksSearch = new BooksSearch();
         $categories = Categories::find()->all();
+        $authors = Authors::find()->all();
         $dataProvider = $booksSearch->search(Yii::$app->request->queryParams);
 
         return $this->render('list', [
+            'authors' => $authors,
             'categories' => $categories,
             'booksSearch' => $booksSearch,
             'dataProvider' => $dataProvider

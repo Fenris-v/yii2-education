@@ -9,12 +9,13 @@ class BooksSearch extends Books
 {
     public $min_cost;
     public $max_cost;
+    public $name;
 
     public function rules()
     {
         return [
-            [['id', 'cost', 'min_cost', 'max_cost', 'category_id'], 'integer'],
-            [['title', 'authors'], 'safe']
+            [['id', 'cost', 'min_cost', 'max_cost', 'category_id', 'publishing_id', 'author_id'], 'integer'],
+            [['title'], 'safe']
         ];
     }
 
@@ -23,9 +24,9 @@ class BooksSearch extends Books
 
         $categoryId = Yii::$app->request->get('id');
         if (!$categoryId) {
-            $query = Books::find()->with('publishing');
+            $query = Books::find()->with('publishing')->with('category')->with('author');
         } else {
-            $query = Books::find()->with('publishing')->where(['category_id' => $categoryId]);
+            $query = Books::find()->with('publishing')->with('category')->with('author')->where(['category_id' => $categoryId]);
         }
 
         $dataProvider = new ActiveDataProvider([
@@ -46,16 +47,26 @@ class BooksSearch extends Books
                 'like', 'category_id', $this->category_id
             ])
             ->andFilterWhere([
-                'publishing' => $this->publishing_id,
+                'like', 'publishing', $this->publishing_id,
             ])
             ->andFilterWhere(['and',
                 ['>=', 'cost', $this->min_cost],
                 ['<=', 'cost', $this->max_cost]
-//            ])
-//            ->andFilterWhere([
-//                'like', 'lower(authors)', strtolower($books->authors_id->name)
+            ])
+            ->andFilterWhere([
+                'like', 'lower(authors)', strtolower($this->author_id)
             ]);
 
         return $dataProvider;
+    }
+
+    public function getBooksAuthors()
+    {
+        return $this->hasMany(BooksAuthors::className(), ['book_id' => 'id']);
+    }
+
+    public function getAuthor()
+    {
+        return $this->hasMany(Authors::className(), ['id' => 'author_id'])->via('booksAuthors');
     }
 }

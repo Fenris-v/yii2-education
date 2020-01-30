@@ -11,6 +11,7 @@ use yii\db\ActiveRecord;
  * @property int $publishing_id
  * @property string $title
  * @property string $authors
+ * @property string $categories
  * @property string $year
  * @property string $photo_url
  * @property string $cost
@@ -47,11 +48,18 @@ class Books extends ActiveRecord
         return $this->hasMany(BooksAuthors::className(), ['book_id' => 'id']);
     }
 
-    public function getCategories()
+    public function getAuthor()
     {
-        return $this->hasMany(Categories::className(), ['id' => 'category_id']);
+        return $this->hasMany(Authors::className(), ['id' => 'author_id'])->via('booksAuthors');
+    }
+
+    public function getBooksCategories()
+    {
+        return $this->hasMany(BooksCategories::className(), ['book_id' => 'id']);
+    }
+
+    public function getCategory()
+    {
+        return $this->hasMany(Categories::className(), ['id' => 'category_id'])->via('booksCategories');
     }
 }
-
-//blog_id = book_id
-//tag_id = author_id

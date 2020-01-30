@@ -8,7 +8,7 @@ use yii\db\ActiveRecord;
  * Class Publishing
  *
  * @property int $id
- * @property string $publishing
+ * @property string $authors
  *
  * @package app\models
  */

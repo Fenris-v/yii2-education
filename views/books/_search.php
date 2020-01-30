@@ -2,20 +2,16 @@
 
 use app\models\Authors;
 use app\models\Books;
-use app\models\Categories;
 use app\models\Publishing;
 use kartik\select2\Select2;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\View;
 use yii\widgets\ActiveForm;
 
 /**
  * @var Books[] $books
- * @var Books[] $allBooks
- * @var Authors[] $authors
- * @var Categories[] $categories
- * @var Publishing[] $publishing
- * @var Books $pages
+ * @var Authors[] $authorsTest
  * @var View $this
  */
 ?>
@@ -47,10 +43,24 @@ use yii\widgets\ActiveForm;
             </div>
         </div>
         <div class="col-xs-4" style="padding-left: 0">
-            <?= $form->field($model, 'publishing_id')->label('Publishing House') ?>
+            <?= $form->field($model, "publishing")->widget(Select2::className(), [
+                    'data' => ArrayHelper::map(Publishing::find()->all(), 'id', 'name'),
+                    'language' => 'en',
+                    'options' => ['placeholder' => 'Select the publishing'],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ]
+                ]); ?>
         </div>
         <div class="col-xs-4" style="padding: 0">
-            <?= $form->field($model, 'author_id')->label('Author') ?>
+            <?= $form->field($model, 'author')->widget(Select2::className(), [
+                'data' => ArrayHelper::map(Authors::find()->all(), 'id', 'name'),
+                'language' => 'en',
+                'options' => ['placeholder' => 'Select the author'],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ]
+            ]); ?>
         </div>
     </div>
     <div class="form-group">

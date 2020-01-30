@@ -63,8 +63,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <?= Html::a($model->title, ['books/view', 'id' => $model->id]) ?>
                             </h3>
                             <h4>
-                                <?php foreach ($model->booksAuthors as $item): ?>
-                                    <?= $item->authors->name ?>
+                                <?php foreach ($model->author as $item): ?>
+                                    <?= $item->name; ?>
                                 <?php endforeach; ?>
                             </h4>
                             <ul>
