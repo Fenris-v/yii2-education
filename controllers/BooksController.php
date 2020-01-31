@@ -37,7 +37,6 @@ class BooksController extends Controller
     public function actionView($id)
     {
         $book = Books::findOne($id);
-//        $publishing = Publishing::find()->all();
         $categories = Categories::find()->all();
 
         if ($book === null) {
@@ -46,7 +45,6 @@ class BooksController extends Controller
 
         return $this->render('view', [
             'book' => $book,
-//            'publishing' => $publishing,
             'categories' => $categories
         ]);
     }

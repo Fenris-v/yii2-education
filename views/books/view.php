@@ -25,11 +25,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <h2><?= $book->title ?></h2>
 
-<div class="item col-xs-12" style="margin-bottom: 20px; display: block;">
-    <div class="photo col-xs-4" style="padding-left: 0">
+<div class="item col-xs-12">
+    <div class="photo col-xs-4">
         <img class="img-responsive" src="<?= $book->photo_url ?>" alt="book">
     </div>
-    <div class="description col-xs-8" style="padding-right: 0">
+    <div class="description col-xs-8">
         <?php foreach ($book->category as $item): ?>
             <?= Html::a($item->category, ['/books', 'id' => $item->id], ['class' => 'label label-primary']) ?>
         <?php endforeach ?>

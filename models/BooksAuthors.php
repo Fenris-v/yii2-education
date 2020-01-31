@@ -18,9 +18,4 @@ class BooksAuthors extends ActiveRecord
     {
         return 'books_authors';
     }
-
-    public function getAuthors()
-    {
-        return $this->hasOne(Authors::className(), ['id' => 'author_id']);
-    }
 }

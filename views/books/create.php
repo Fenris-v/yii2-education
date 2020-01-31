@@ -2,8 +2,6 @@
 
 use app\models\Authors;
 use app\models\Books;
-use kartik\select2\Select2;
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\web\View;
 use yii\widgets\ActiveForm;
@@ -31,16 +29,6 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php $form = ActiveForm::begin() ?>
 <?= $form->field($book, 'title')->label('Название') ?>
 <?= $form->field($book, 'author_id')->label('Авторы') ?>
-<?php //foreach ($book->author as $item): ?>
-<?php// $form->field($book->author, 'id')->widget(Select2::className(), [
-//    'data' => ArrayHelper::map(Authors::find()->all(), 'id', 'name'),
-//    'language' => 'en',
-//    'options' => ['placeholder' => 'Select the author'],
-//    'pluginOptions' => [
-//        'allowClear' => true
-//    ]
-//]); ?>
-<?php //endforeach; ?>
 <?= $form->field($book, 'category_id')->label('Категория') ?>
 <?= $form->field($book, 'year')->label('Год')->input('number') ?>
 <?= $form->field($book, 'publishing_id')->label('Издательство') ?>

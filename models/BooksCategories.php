@@ -17,9 +17,4 @@ class BooksCategories extends ActiveRecord
     {
         return 'books_categories';
     }
-
-    public function getCategories()
-    {
-        return $this->hasOne(Categories::className(), ['id' => 'category_id']);
-    }
 }

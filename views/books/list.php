@@ -2,9 +2,7 @@
 
 use app\models\Books;
 use app\models\Categories;
-use app\models\Publishing;
 use yii\helpers\Html;
-use yii\web\View;
 use yii\widgets\ListView;
 use yii\widgets\Pjax;
 
@@ -30,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <h2><?= $this->title ?></h2>
 
 <div class="site-about">
-    <div class="col-xs-3" style="padding-left: 0">
+    <div class="col-xs-3 navMenu">
         <ul class="nav nav-pills nav-stacked bg-info">
             <?php foreach ($categories as $category): ?>
                 <li role="presentation">
@@ -40,8 +38,8 @@ $this->params['breadcrumbs'][] = $this->title;
         </ul>
     </div>
 
-    <div class="col-xs-9" style="padding-left: 0; padding-right: 0">
-        <div class="filters col-xs-12" style="margin-bottom: 20px; padding-left: 0; padding-right: 0;">
+    <div class="col-xs-9 contentContainer">
+        <div class="filters col-xs-12">
             <?php echo $this->render('_search', ['model' => $booksSearch]); ?>
         </div>
 
@@ -53,12 +51,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'itemView' =>
                 function ($model) { ?>
 
-                    <div class="item col-xs-12"
-                         style="margin-bottom: 20px; display: block; border: 1px solid #28a745!important; background-color: #f5f5f5;">
-                        <div class="photo col-xs-4" style="padding-left: 0; padding-top: 20px">
+                    <div class="item item-list col-xs-12">
+                        <div class="photo col-xs-4">
                             <img class="img-responsive" src="<?= $model->photo_url ?>" alt="book">
                         </div>
-                        <div class="description col-xs-8" style="padding-right: 0">
+                        <div class="description col-xs-8">
                             <h3>
                                 <?= Html::a($model->title, ['books/view', 'id' => $model->id]) ?>
                             </h3>

@@ -11,7 +11,6 @@ use yii\widgets\ActiveForm;
 
 /**
  * @var Books[] $books
- * @var Authors[] $authorsTest
  * @var View $this
  */
 ?>
@@ -23,26 +22,16 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]) ?>
 
-    <?php
-//    $form->field($model, 'authors')->widget(Select2::classname(), [
-//        'data' => $data,
-//        'language' => 'en',
-//        'options' => ['placeholder' => 'Select a state ...'],
-//        'pluginOptions' => [
-//            'allowClear' => true
-//        ],
-//    ]); ?>
-
-    <div class="col-xs-12" style="padding: 0">
-        <div class="col-xs-4" style="padding: 0">
-            <div class="col-xs-6" style="padding-left: 0">
+    <div class="wrapper col-xs-12" >
+        <div class="formContainer col-xs-4">
+            <div class="price col-xs-6">
                 <?= $form->field($model, 'min_cost') ?>
             </div>
-            <div class="col-xs-6" style="padding-left: 0">
+            <div class="price col-xs-6">
                 <?= $form->field($model, 'max_cost') ?>
             </div>
         </div>
-        <div class="col-xs-4" style="padding-left: 0">
+        <div class="publishing col-xs-4">
             <?= $form->field($model, "publishing")->widget(Select2::className(), [
                     'data' => ArrayHelper::map(Publishing::find()->all(), 'id', 'name'),
                     'language' => 'en',
@@ -52,7 +41,7 @@ use yii\widgets\ActiveForm;
                     ]
                 ]); ?>
         </div>
-        <div class="col-xs-4" style="padding: 0">
+        <div class="noPadding col-xs-4">
             <?= $form->field($model, 'author')->widget(Select2::className(), [
                 'data' => ArrayHelper::map(Authors::find()->all(), 'id', 'name'),
                 'language' => 'en',
