@@ -14,7 +14,7 @@ class BooksSearch extends Books
     public function rules()
     {
         return [
-            [['id', 'cost', 'min_cost', 'max_cost', 'category_id', 'publishing_id', 'author_id'], 'integer'],
+            [['id', 'cost', 'min_cost', 'max_cost', 'publishing_id'], 'integer'],
             [['title'], 'safe']
         ];
     }
@@ -24,9 +24,11 @@ class BooksSearch extends Books
 
         $categoryId = Yii::$app->request->get('id');
         if (!$categoryId) {
-            $query = Books::find()->with('publishing')->with('category')->with('author');
+            $query = Books::find()->with('publishing');
         } else {
-            $query = Books::find()->with('publishing')->with('category')->with('author')->where(['category_id' => $categoryId]);
+            $query = Books::find()->with('publishing')
+//                ->where(['category_id' => $categoryId])
+            ;
         }
 
         $dataProvider = new ActiveDataProvider([
@@ -44,7 +46,7 @@ class BooksSearch extends Books
 
         $query
             ->andFilterWhere([
-                'like', 'category_id', $this->category_id
+//                'like', 'category_id', $this->category_id
             ])
             ->andFilterWhere([
                 'like', 'publishing', $this->publishing_id,
@@ -54,7 +56,7 @@ class BooksSearch extends Books
                 ['<=', 'cost', $this->max_cost]
             ])
             ->andFilterWhere([
-                'like', 'lower(authors)', strtolower($this->author_id)
+//                'like', 'lower(authors)', strtolower($this->author_id)
             ]);
 
         return $dataProvider;

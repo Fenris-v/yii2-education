@@ -32,7 +32,7 @@ class Books extends ActiveRecord
     public function rules()
     {
         return [
-            [['publishing_id', 'title', 'year', 'photo_url', 'cost', 'description', 'authors', 'category_id'], 'required'],
+            [['publishing_id', 'title', 'year', 'photo_url', 'cost', 'description'], 'required'],
             [['description'], 'string', 'min' => 50],
             [['year'], 'string', 'length' => [4, 4]]
         ];

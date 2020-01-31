@@ -17,11 +17,9 @@ class BooksController extends Controller
 
         $booksSearch = new BooksSearch();
         $categories = Categories::find()->all();
-        $authors = Authors::find()->all();
         $dataProvider = $booksSearch->search(Yii::$app->request->queryParams);
 
         return $this->render('list', [
-            'authors' => $authors,
             'categories' => $categories,
             'booksSearch' => $booksSearch,
             'dataProvider' => $dataProvider
