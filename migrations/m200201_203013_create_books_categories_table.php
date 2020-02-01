@@ -17,6 +17,21 @@ class m200201_203013_create_books_categories_table extends Migration
             'book_id' => $this->integer(),
             'category_id' => $this->integer(),
         ]);
+
+        $this->createIndex(
+            'idx-category_id',
+            'books_categories',
+            'id'
+        );
+
+        $this->addForeignKey(
+            'fk-category_id',
+            'books_categories',
+            'id',
+            'categories',
+            'id',
+            'CASCADE'
+        );
     }
 
     /**

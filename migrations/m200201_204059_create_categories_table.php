@@ -18,6 +18,7 @@ class m200201_204059_create_categories_table extends Migration
         ]);
     }
 
+
     /**
      * {@inheritdoc}
      */

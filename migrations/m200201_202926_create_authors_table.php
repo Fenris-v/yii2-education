@@ -16,6 +16,21 @@ class m200201_202926_create_authors_table extends Migration
             'id' => $this->primaryKey(),
             'name' => $this->string(),
         ]);
+
+        $this->createIndex(
+            'idx-author_id',
+            'books_authors',
+            'id'
+        );
+
+        $this->addForeignKey(
+            'fk-author_id',
+            'books_authors',
+            'id',
+            'authors',
+            'id',
+            'CASCADE'
+        );
     }
 
     /**
