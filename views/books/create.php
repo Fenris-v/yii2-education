@@ -28,8 +28,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?php $form = ActiveForm::begin() ?>
 <?= $form->field($book, 'title')->label('Название') ?>
-<?= $form->field($book, 'author')->label('Авторы') ?>
-<?= $form->field($book, 'category')->label('Категория') ?>
+<?//= $form->field($book, 'author')->label('Авторы') ?>
+<?//= $form->field($book, 'category')->label('Категория') ?>
 <?= $form->field($book, 'year')->label('Год')->input('number') ?>
 <?= $form->field($book, 'publishing_id')->label('Издательство') ?>
 <?= $form->field($book, 'photo_url')->label('Ссылка на изображение') ?>

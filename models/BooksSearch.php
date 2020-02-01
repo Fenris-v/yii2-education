@@ -22,13 +22,15 @@ class BooksSearch extends Books
     public function search($params)
     {
 
-        $categoryId = Yii::$app->request->get('id');
+        $categoryId = Yii::$app->request->get('category_id');
         if (!$categoryId) {
             $query = Books::find()->with('publishing');
         } else {
             $query = Books::find()->with('publishing')
-//                ->where(['category_id' => $categoryId])
-            ;
+                /**
+                 * it's no working and show wrong data
+                 */
+                ->where(['id' => $categoryId]);
         }
 
         $dataProvider = new ActiveDataProvider([

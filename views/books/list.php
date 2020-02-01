@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <ul class="nav nav-pills nav-stacked bg-info">
             <?php foreach ($categories as $category): ?>
                 <li role="presentation">
-                    <?= Html::a($category->category, ['', 'id' => $category->id]) ?>
+                    <?= Html::a($category->category, ['', 'category_id' => $category->id]) ?>
                 </li>
             <?php endforeach; ?>
         </ul>
