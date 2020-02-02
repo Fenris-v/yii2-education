@@ -18,4 +18,11 @@ class Authors extends ActiveRecord
     {
         return 'authors';
     }
+
+    public function rules()
+    {
+        return [
+            [['name'], 'required']
+        ];
+    }
 }

@@ -21,7 +21,6 @@ use yii\db\ActiveRecord;
  * @package app\models
  */
 
-
 class Books extends ActiveRecord
 {
     public static function tableName()
