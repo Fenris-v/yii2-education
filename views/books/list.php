@@ -12,7 +12,7 @@ use yii\widgets\Pjax;
  * @var Categories[] $categories
  */
 
-if ($categoryId = Yii::$app->request->get('id')) {
+if ($categoryId = Yii::$app->request->get('category_id')) {
     $this->title = $categories[$categoryId - 1]->category;
     $this->params['breadcrumbs'][] = [
         'template' => "<li>{link}</li>\n",
